@@ -3,25 +3,27 @@
     <div id="header">
       <router-link to="/"><img src="@/assets/img/logo.png" class="logo"/></router-link>
 
-      <router-link to="/sheet/barbarian"><character-portrait character="barbarian"/></router-link>
-      <router-link to="/sheet/dwarf"><character-portrait character="dwarf"/></router-link>
-      <router-link to="/sheet/elf"><character-portrait character="elf"/></router-link>
-      <router-link to="/sheet/wizard"><character-portrait character="wizard"/></router-link>
+      <router-link to="/hero/barbarian"><portrait hero="barbarian"/></router-link>
+      <router-link to="/hero/dwarf"><portrait hero="dwarf"/></router-link>
+      <router-link to="/hero/elf"><portrait hero="elf"/></router-link>
+      <router-link to="/hero/wizard"><portrait hero="wizard"/></router-link>
       <router-link to="/sync" class="float-right"><div class="h3 sync-button"><b-icon icon="gear-fill"></b-icon></div></router-link>
     </div>
 
-    <router-view id="view"/>
+    <div id="view">
+      <router-view/>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
   import { Component, Vue } from "vue-property-decorator";
 
-  import CharacterPortrait from "@/components/CharacterPortrait.vue";
+  import Portrait from "@/components/Portrait.vue";
 
   @Component({
     components: {
-      CharacterPortrait,
+      Portrait,
     },
   })
   export default class App extends Vue {}

@@ -1,33 +1,36 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import { Character } from "@/types"
+import { HeroEnum, Hero } from "@/types"
 
 Vue.use(Vuex)
 
-const chars: Character[] = [];
-
 export default new Vuex.Store({
   state: {
-    selectedCharacter: '',
-    chars,
+    barbarian: new Hero(HeroEnum.barbarian),
+    dwarf: new Hero(HeroEnum.dwarf),
+    elf: new Hero(HeroEnum.elf),
+    wizard: new Hero(HeroEnum.wizard),
+
+    selectedHero: '',
+    playedHero: '',
   },
   mutations: {
-    setSelectedCharacter(state, payload) {
-      state.selectedCharacter = payload;
+    setPlayedHero(state, name: HeroEnum) {
+      state.playedHero = name;
     },
 
-    updateChar(state, payload) {
-      const char = state.chars.find((char) => char.id === payload.id);
+    setSelectedHero(state, name: HeroEnum) {
+      state.selectedHero = name;
+    },
 
-      if (char) {
-        // save
-      }
+    update(state, hero: Hero) {
+      state[hero.name] = hero;
     },
   },
   actions: {
-    updateChar({ commit }, payload) {
-      commit('updateChar', payload);
+    update({ commit }, hero: Hero) {
+      commit('update', hero);
     }
   },
 })

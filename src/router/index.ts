@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
-import CharacterSheet from '@/views/CharacterSheet.vue'
+import Hero from '@/views/Hero.vue'
 import Sync from '@/views/Sync.vue'
 
 Vue.use(VueRouter)
@@ -13,9 +13,9 @@ const routes = [
     component: Home,
   },
   {
-    path: '/sheet/:character',
-    name: 'CharacterSheet',
-    component: CharacterSheet,
+    path: '/hero/:id',
+    name: 'Hero',
+    component: Hero,
     props: true,
   },
   {
