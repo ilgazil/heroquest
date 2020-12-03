@@ -1,41 +1,34 @@
 <template>
-  <div>
-    <sheet :hero="id" />
-  </div>
+  <CharacterSheet :hero="hero" :writable="isWritable" />
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from "vue-property-decorator";
-  import { Route } from "vue-router";
-  import store from "@/store";
+  import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { getModule } from 'vuex-module-decorators';
 
-  import Sheet from "@/components/Sheet.vue";
+  import CharacterStore from '@/store/modules/character';
+  import PeerStore, { peerIdToRole } from '@/store/modules/peer';
+  import { Hero as HeroEntity, HeroType } from '@/types';
 
-  import { HeroEnum } from "@/types";
+  import CharacterSheet from '@/components/CharacterSheet.vue';
 
   @Component({
     components: {
-      Sheet,
-    },
-
-    beforeRouteEnter: (to: Route, from: Route, next: Function) => {
-      store.commit('setSelectedHero', to.params.id);
-      next();
-    },
-
-    beforeRouteUpdate: (to: Route, from: Route, next: Function) => {
-      store.commit('setSelectedHero', to.params.id);
-      next();
-    },
-
-    beforeRouteLeave: (to: Route, from: Route, next: Function) => {
-      store.commit('setSelectedHero', '');
-      next();
+      CharacterSheet,
     },
   })
   export default class Hero extends Vue {
-    @Prop() private id!: HeroEnum;
+    @Prop(String)
+    private heroId!: HeroType;
 
-    private edit = false;
+    private get hero(): HeroEntity {
+      return getModule(CharacterStore)[this.heroId];
+    }
+
+    private get isWritable(): boolean {
+      const peerId = getModule(PeerStore).id;
+
+      return !!peerId && peerIdToRole(peerId) === this.heroId;
+    }
   }
 </script>

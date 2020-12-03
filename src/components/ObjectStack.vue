@@ -1,17 +1,17 @@
 <template>
-  <div id="potion-stack">
+  <div class="text-center">
     <div>
       <slot></slot>
     </div>
 
-    <b-button variant="danger" size="sm" @click="remove" :disabled="!value">-</b-button>
+    <button class="w-6 h-6 rounded bg-yellow-700" :class="{ 'opacity-50': !value }" :disabled="!value" @click="remove">-</button>
     {{ value }}
-    <b-button variant="success" size="sm" @click="add">+</b-button>
+    <button class="w-6 h-6 rounded bg-yellow-700" @click="add">+</button>
   </div>
 </template>
 
 <script lang="ts">
-  import { Component, Prop, Vue } from "vue-property-decorator";
+  import { Component, Prop, Vue } from 'vue-property-decorator';
 
   @Component
   export default class ObjectStack extends Vue {
@@ -26,9 +26,3 @@
     }
   }
 </script>
-
-<style scoped lang="scss">
-  #potion-stack {
-    text-align: center;
-  }
-</style>
